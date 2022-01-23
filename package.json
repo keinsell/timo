@@ -1,0 +1,13 @@
+{
+  "name": "timo",
+  "version": "0.0.1",
+  "description": "Express.js application dedicated for tracking time",
+  "main": "dist/index.js",
+  "repository": "https://github.com/keinsell/timo.git",
+  "author": "Jay Whitewood <jakub.jay.olan@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^4.5.5"
+  }
+}
