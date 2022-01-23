@@ -4,7 +4,7 @@ Timo is a small application commissioned for me as a recruitment task by Nextrop
 
 ## About
 
-The scope of the project was quite narrow, so I decided to extend it with a few nonsensical things that were not mentioned in the order: authentication, database integration, creating a Docker image or some simple CI/CD. Below I've listed a few features along with links to their PRs (using `git-flow` alone is a pain, especially with a small project) but I think it might make the review a little easier.
+The scope of the project was quite narrow, so I decided to extend it with a few nonsensical things that were not mentioned in the order: authentication (maybe), database integration, creating a Docker image or some simple CI/CD. Below I've listed a few features along with links to their PRs (using `git-flow` alone is a pain, especially with a small project) but I think it might make the review a little easier.
 
 - Application can xyz...
 
@@ -71,6 +71,13 @@ An option for the lazy.
 ```
 <test_results>
 ```
+
+### Tour de' Timo
+
+- Create new user by `POST /user`
+- Log time by `POST /{userID}/log`
+- Stop logging time by `PUT /{userID}/log`
+- Generate summary by `POST /{userID}/summary`
 
 ## Contributing
 
