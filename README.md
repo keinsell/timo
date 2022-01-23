@@ -18,6 +18,8 @@ The scope of the project was quite narrow, so I decided to extend it with a few 
 - `node@16.13.2`
 - `yarn@1.22.15`
 - `npm@8.3.0`
+- `docker-compose@1.29.2`
+- `docker-engine@20.10.8`
 
 ### Installation
 
@@ -41,6 +43,20 @@ If you plan to use the app on your machine, it is recommended that you use the `
 
 ```bash
 $ yarn dev
+```
+
+
+For running production build you should use `yarn start` or `node dist/src/index.js`
+
+```bash
+$ yarn start
+```
+
+
+Application uses few third-party services such as database in this case it's recommened to use `docker-compose.yml` file.
+
+```bash
+...
 ```
 
 To test your application through unit tests created in `ava` you can use the following command, the command `test:cov` will also return code coverage. The badge below shows the current code coverage.
