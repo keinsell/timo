@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-   node: circleci/node@4.7
+   node: circleci/node@5.0.0
    docker: circleci/docker@2.0.0
    codecov: codecov/codecov@3.2.0
 
@@ -13,7 +13,8 @@ jobs:
       tag: 16.13.2
     steps:
       - checkout
-      - node/install-packages
+      - node/install-packages:
+          pkg-manager: yarn
       - run: yarn build
 
   test:
@@ -22,7 +23,8 @@ jobs:
       tag: 16.13.2
     steps:
       - checkout
-      - node/install-packages
+      - node/install-packages:
+          pkg-manager: yarn
       - run: yarn test
       - codecov/upload
 
@@ -32,7 +34,8 @@ jobs:
       tag: 16.13.2
     steps:
       - checkout
-      - node/install-packages
+      - node/install-packages:
+          pkg-manager: yarn
       - run: npx semantic-release
 
   docker_build:
