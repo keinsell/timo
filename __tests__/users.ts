@@ -49,7 +49,7 @@ test.afterEach(async () => {
 
 /* Temporary I have no clue why this test is failing at all - it works fine on local but fails on CI */
 
-test.failing('GET /u should return array with usernames', async (t) => {
+test.serial('GET /u should return array with usernames', async (t) => {
 	// Request to get data from database
 	const body: any = await got('u', { prefixUrl: t.context.url }).json()
 	t.deepEqual(body.data, [username])

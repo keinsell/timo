@@ -10,9 +10,11 @@ export class UserController {
 
 		if (users > 0) {
 			rs.status(500).json({ status: 'User with follwoing username exist in database.' })
+			return 0
 		}
 
-		const newUser = await new User({ username: desiredUsername })
+		const newUser = await new User({ username: desiredUsername }).save()
+
 		rs.status(201).json({ data: newUser })
 	}
 
@@ -22,8 +24,8 @@ export class UserController {
 		const users = await User.find()
 		let usernames = []
 		users.map((user) => usernames.push(user.username))
+		
 		// Return array with usernames with startus 200
-		rs.status(200).json(usernames)
 		rs.status(200).json({ data: usernames })
 	}
 }
