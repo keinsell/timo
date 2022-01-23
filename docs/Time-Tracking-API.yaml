@@ -2,196 +2,122 @@ openapi: 3.0.0
 info:
   title: Time Tracking API
   version: '1.0'
+  description: ''
 servers:
   - url: 'http://localhost:3000'
 paths:
-  '/users/{userId}':
+  '/{userId}/log':
+    post:
+      summary: Timeblocks
+      operationId: log-time
+      description: Start logging a time
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TimeEntry'
+            examples: {}
     parameters:
       - schema:
-          type: integer
+          type: string
         name: userId
         in: path
         required: true
-        description: Id of an existing user.
+    delete:
+      summary: ''
+      operationId: discard-timelog
+      responses:
+        '200':
+          description: OK
+      description: Discard currently logged time
+    put:
+      summary: ''
+      operationId: stop-timelog
+      responses:
+        '200':
+          description: OK
+      description: Update (stop) current time session.
+  '/{userId}/summary':
+    parameters:
+      - schema:
+          type: string
+        name: userId
+        in: path
+        required: true
     get:
-      summary: Get User Info by User ID
+      summary: Generate weekly summary
       tags: []
-      responses:
-        '200':
-          description: User Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                Get User Alice Smith:
-                  value:
-                    id: 142
-                    firstName: Alice
-                    lastName: Smith
-                    email: alice.smith@gmail.com
-                    dateOfBirth: '1997-10-31'
-                    emailVerified: true
-                    signUpDate: '2019-08-24'
-        '404':
-          description: User Not Found
-      operationId: get-users-userId
-      description: Retrieve the information of the user with the matching user ID.
-    patch:
-      summary: Update User Information
-      operationId: patch-users-userId
-      responses:
-        '200':
-          description: User Updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                Updated User Rebecca Baker:
-                  value:
-                    id: 13
-                    firstName: Rebecca
-                    lastName: Baker
-                    email: rebecca@gmail.com
-                    dateOfBirth: '1985-10-02'
-                    emailVerified: false
-                    createDate: '2019-08-24'
-        '404':
-          description: User Not Found
-        '409':
-          description: Email Already Taken
-      description: Update the information of an existing user.
+      responses: {}
+      operationId: get-userId-summary
+      description: Provides .csv file with timesheet from past week.
       requestBody:
         content:
           application/json:
             schema:
               type: object
               properties:
-                firstName:
+                sum:
+                  type: object
+                  properties:
+                    monday:
+                      type: string
+                    tuesday:
+                      type: string
+                    '':
+                      type: string
+                fromDate:
                   type: string
-                lastName:
+                toDate:
                   type: string
-                email:
+                file:
                   type: string
-                  description: 'If a new email is given, the user''s email verified property will be set to false.'
-                dateOfBirth:
-                  type: string
-            examples:
-              Update First Name:
-                value:
-                  firstName: Rebecca
-              Update Email:
-                value:
-                  email: rebecca@gmail.com
-              Update Last Name & Date of Birth:
-                value:
-                  lastName: Baker
-                  dateOfBirth: '1985-10-02'
-        description: Patch user properties to update.
-  /user:
     post:
-      summary: Create New User
-      operationId: post-user
+      summary: Get summary from specific timeframe
+      operationId: post-userId-summary
       responses:
         '200':
-          description: User Created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/User'
-              examples:
-                New User Bob Fellow:
-                  value:
-                    id: 12
-                    firstName: Bob
-                    lastName: Fellow
-                    email: bob.fellow@gmail.com
-                    dateOfBirth: '1996-08-24'
-                    emailVerified: false
-                    createDate: '2020-11-18'
-        '400':
-          description: Missing Required Information
-        '409':
-          description: Email Already Taken
+          description: OK
+      description: ''
+  /users:
+    get:
+      summary: Get users from database
+      tags: []
+      responses: {}
+      operationId: get-users
+      description: ''
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                firstName:
-                  type: string
-                lastName:
-                  type: string
-                email:
-                  type: string
-                dateOfBirth:
-                  type: string
-                  format: date
-              required:
-                - firstName
-                - lastName
-                - email
-                - dateOfBirth
-            examples:
-              Create User Bob Fellow:
-                value:
-                  firstName: Bob
-                  lastName: Fellow
-                  email: bob.fellow@gmail.com
-                  dateOfBirth: '1996-08-24'
-        description: Post the necessary fields for the API to create a new user.
-      description: Create a new user.
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+            examples: {}
 components:
   schemas:
     User:
       title: User
       type: object
       description: ''
-      x-examples:
-        Alice Smith:
-          id: 142
-          firstName: Alice
-          lastName: Smith
-          email: alice.smith@gmail.com
-          dateOfBirth: '1997-10-31'
-          emailVerified: true
-          signUpDate: '2019-08-24'
+      x-examples: {}
       properties:
-        id:
-          type: integer
+        _id:
+          type: string
           description: Unique identifier for the given user.
-        firstName:
+          format: uuid
+        nickname:
           type: string
-        lastName:
-          type: string
-        email:
-          type: string
-          format: email
-        dateOfBirth:
-          type: string
-          format: date
-          example: '1997-10-31'
-        emailVerified:
-          type: boolean
-          description: Set to true if the user's email has been verified.
-        createDate:
-          type: string
-          format: date
-          description: The date that the user was created.
+          example: Jay
       required:
-        - id
-        - firstName
-        - lastName
-        - email
-        - emailVerified
+        - nickname
     TimeEntry:
       title: TimeEntry
       type: object
+      description: ''
       properties:
-        id:
+        _id:
           type: string
+          format: uuid
         user:
           $ref: '#/components/schemas/User'
         isTracking:
@@ -202,4 +128,7 @@ components:
           type: string
         endedAt:
           type: string
-      description: ''
+      required:
+        - user
+        - isTracking
+        - startedAt
