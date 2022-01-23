@@ -8,7 +8,7 @@ export interface UserInterface extends Document {
 export const User = model(
 	'User',
 	new Schema({
-		nickname: {
+		username: {
 			type: String,
 			unique: true,
 		},
