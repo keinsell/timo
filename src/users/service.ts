@@ -24,6 +24,7 @@ export class UserController {
 		users.map((user) => usernames.push(user.username))
 		// Return array with usernames with startus 200
 		rs.status(200).json(usernames)
+		rs.status(200).json({ data: usernames })
 	}
 }
 
