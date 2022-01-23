@@ -26,6 +26,15 @@ jobs:
       - run: yarn test
       - codecov/upload
 
+  release:
+    executor: 
+      name: node/default
+      tag: 16.13.2
+    steps:
+      - checkout
+      - node/install-packages
+      - run: npx semantic-release
+
   docker_build:
       executor: docker/docker
       steps:
@@ -42,6 +51,10 @@ workflows:
       - build
       - test
       - docker_build:
+          requires:
+            - build
+            - test
+      - release:
           requires:
             - build
             - test
