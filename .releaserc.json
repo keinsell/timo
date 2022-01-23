@@ -33,5 +33,5 @@
 			}
 		]
 	],
-	"branches": ["main"]
+	"branches": ["main", "jay/**"]
 }
