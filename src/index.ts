@@ -1,27 +1,9 @@
 import express from 'express'
+import { HelloService } from 'hello/service'
+import { HOST, PORT } from 'utils'
 
 export function returnX() {
 	return 'x'
-}
-
-export class HelloController {
-	public async sayHello(rq: express.Request, rs: express.Response) {
-		rs.json('Hello')
-	}
-}
-
-export class HelloService {
-	public router: express.Router
-	private controller: HelloController = new HelloController()
-
-	constructor() {
-		this.router = express.Router()
-		this.routes()
-	}
-
-	private routes() {
-		this.router.get('/', this.controller.sayHello)
-	}
 }
 
 export class HttpInterface {
@@ -44,13 +26,23 @@ export class HttpInterface {
 		this.app.use(express.urlencoded({ extended: false }))
 	}
 	private security() {}
+
 	private routes() {
 		this.app.use('/', new HelloService().router)
 	}
 
-	public startup() {
-		this.app.listen(process.env.PORT, () => {
-			console.log(`Application is working on http://${process.env.HOST}:${process.env.PORT}`)
+	/** Method dedicated for database connection. */
+	private database() {
+		console.log('Database Connection should be implemented.')
+	}
+
+	/** Method dedicated for running Express.js server. */
+	public async startup() {
+		// Connect to database
+		this.database()
+
+		this.app.listen(PORT, () => {
+			console.log(`Application is working on http://${HOST}:${PORT}`)
 		})
 	}
 }
