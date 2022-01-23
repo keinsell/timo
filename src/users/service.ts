@@ -15,6 +15,16 @@ export class UserController {
 		const newUser = await new User({ username: desiredUsername })
 		rs.status(201).json({ data: newUser })
 	}
+
+	/** Returns array filled with User's usernames as strings */
+	public async GET(rq: Request, rs: Response) {
+		// Get all users from database and parse their usernames to array
+		const users = await User.find()
+		let usernames = []
+		users.map((user) => usernames.push(user.username))
+		// Return array with usernames with startus 200
+		rs.status(200).json(usernames)
+	}
 }
 
 export class UserService {
@@ -27,6 +37,7 @@ export class UserService {
 	}
 
 	private routes() {
+		this.router.post('/', this.controller.POST)
 		this.router.get('/', this.controller.GET)
 	}
 }
