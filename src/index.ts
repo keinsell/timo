@@ -1,6 +1,10 @@
 import express from 'express'
+import mongoose from 'mongoose'
+
 import { HelloService } from 'hello/service'
-import { HOST, PORT } from 'utils'
+import { UserService } from 'users/service'
+
+import { HOST, MONGODB_URL, PORT } from 'utils'
 
 export function returnX() {
 	return 'x'
@@ -29,16 +33,25 @@ export class HttpInterface {
 
 	private routes() {
 		this.app.use('/', new HelloService().router)
+		this.app.use('/u', new UserService().router)
 	}
 
 	/** Method dedicated for database connection. */
 	private database() {
-		console.log('Database Connection should be implemented.')
+		try {
+			mongoose.connect(MONGODB_URL)
+		} catch (e) {
+			throw Error(e)
+		}
+
+		// TODO: Add `mongoose` error handling
+
+		return mongoose
 	}
 
 	/** Method dedicated for running Express.js server. */
 	public async startup() {
-		// Connect to database
+		// Ensure application connected to database before run.
 		this.database()
 
 		this.app.listen(PORT, () => {
