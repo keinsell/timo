@@ -47,6 +47,24 @@ jobs:
          - checkout
          - docker/build:
             image: keinsell/timo
+            tag: latest
+
+  docker_release:
+      executor: docker/docker
+      steps: 
+        - setup_remote_docker:
+            version: 19.03.13
+        - checkout
+        - docker/check:
+            registry: ghcr.io
+            use-docker-credentials-store: true
+        # TODO(performance): We should transfer image from docker_build to don't build same thing twice.
+        - docker/build:
+            image: keinsell/timo
+            tag: latest
+        - docker/push:
+            image: keinsell/timo
+            tag: latest
 
 workflows:
   version: 2
@@ -54,11 +72,14 @@ workflows:
     jobs:
       - build
       - test
-      - docker_build:
-          requires:
-            - build
-            - test
       - release:
           requires:
             - build
             - test
+      - docker_build:
+          requires:
+            - build
+            - test
+      - docker_release:
+          requires:
+            - docker_build
