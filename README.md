@@ -2,19 +2,11 @@
 
 Timo is a small application commissioned for me as a recruitment task by Nextrope. The purpose of the application is to use TypeScript and any HTTP application framework to create a solution that will allow us to track time and generate reports on how much time we spent working on a given day.
 
-# About
+## About
 
-## Project Reqiurements
-Write a time tracking application. Application should have following functionalities:
- - starting the working time with a description of what the user is currently working on (remember to block the possibility of starting a new time when the previous one has not been stopped).
- - Stopping the working time.
- - downloading total working time in a data format that allows for easy display on a chart broken down by day.
+The scope of the project was quite narrow, so I decided to extend it with a few nonsensical things that were not mentioned in the order: authentication, database integration, creating a Docker image or some simple CI/CD. Below I've listed a few features along with links to their PRs (using `git-flow` alone is a pain, especially with a small project) but I think it might make the review a little easier.
 
-### Technical Reqiurements
- - Implementation in any framework (preferred loopback.io version 4 or others e.g.: express.js, nest.js)
- - Implementation in TypeScript language
- - Tests implementation
- - Endpoint description in OpenAPI standard
+- Application can xyz...
 
 
 ## Getting Started
@@ -58,6 +50,12 @@ $ yarn test
 $ yarn test:cov
 ```
 
+An option for the lazy.
+
+```
+<test_results>
+```
+
 ## Contributing
 
 ```js
@@ -66,10 +64,10 @@ YouDoNot()
 
 ## Authors & Contributors
 
-The original setup of this repository is by [keinsell](https://github.com/keinsell)
+The original setup of this repository is by [keinsell](https://github.com/keinsell).
 
 ## License
 
 This project is licensed under the **MIT**
 
-See [LICENSE](docs/LICENSE) for more information.
+See [LICENSE](docs/LICENSE) for more information.∂
