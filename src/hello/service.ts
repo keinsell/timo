@@ -19,7 +19,3 @@ export class HelloService {
 		this.router.get('/', this.controller.sayHello)
 	}
 }
-
-export function returnX() {
-	return 'x'
-}
