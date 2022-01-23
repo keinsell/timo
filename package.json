@@ -10,7 +10,7 @@
 	"scripts": {
 		"start": "node dist/src/index.js",
 		"build": "tsc -p tsconfig.json",
-		"dev": "tsnd --respawn --quiet --clear src/index.ts",
+		"dev": "tsnd --respawn --quiet --clear -r tsconfig-paths/register src/index.ts",
 		"test": "ava"
 	},
 	"devDependencies": {
