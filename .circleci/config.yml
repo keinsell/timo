@@ -36,6 +36,7 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
+      - run: yarn build
       - run: npx semantic-release
 
   docker_build:
