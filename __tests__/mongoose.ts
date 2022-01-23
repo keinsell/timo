@@ -13,7 +13,7 @@ const app = new HttpInterface().app
 test.before(async (t) => {
 	t.context.server = http.createServer(app)
 	t.context.url = await listen(t.context.server)
-	t.context.mongod = await MongoMemoryServer.create()
+	t.context.mongod = await MongoMemoryServer.create({ binary: { version: 'latest' } })
 	await mongoose.connect(t.context.mongod.getUri())
 })
 
