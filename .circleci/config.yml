@@ -61,9 +61,11 @@ jobs:
         # TODO(performance): We should transfer image from docker_build to don't build same thing twice.
         - docker/build:
             image: keinsell/timo
+            registry: ghcr.io
             tag: latest
         - docker/push:
             image: keinsell/timo
+            registry: ghcr.io
             tag: latest
 
 workflows:
