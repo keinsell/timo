@@ -1,0 +1,64 @@
+version: 2.1
+
+orbs:
+   node: circleci/node@5.0.0
+   docker: circleci/docker@2.0.0
+   codecov: codecov/codecov@3.2.0
+
+jobs:
+
+  build:
+    executor: 
+      name: node/default
+      tag: 16.13.2
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run: yarn build
+
+  test:
+    executor: 
+      name: node/default
+      tag: 16.13.2
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run: yarn test
+      - codecov/upload
+
+  release:
+    executor: 
+      name: node/default
+      tag: 16.13.2
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run: yarn build
+      - run: npx semantic-release
+
+  docker_build:
+      executor: docker/docker
+      steps:
+         - setup_remote_docker:
+            version: 19.03.13
+         - checkout
+         - docker/build:
+            image: keinsell/timo
+
+workflows:
+  version: 2
+  edge:
+    jobs:
+      - build
+      - test
+      - docker_build:
+          requires:
+            - build
+            - test
+      - release:
+          requires:
+            - build
+            - test
