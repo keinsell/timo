@@ -2,7 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 
 import { HelloService } from 'hello/service'
-import { UserService } from 'users/service'
+// import { UserService } from 'users/service'
 
 import { HOST, MONGODB_URL, PORT } from 'utils'
 
@@ -33,7 +33,7 @@ export class HttpInterface {
 
 	private routes() {
 		this.app.use('/', new HelloService().router)
-		this.app.use('/u', new UserService().router)
+		// this.app.use('/u', new UserService().router)
 	}
 
 	/** Method dedicated for database connection. */
