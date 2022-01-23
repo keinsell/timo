@@ -1,5 +1,9 @@
 import express from 'express'
 
+export function returnX() {
+	return 'x'
+}
+
 export class HelloController {
 	public async sayHello(rq: express.Request, rs: express.Response) {
 		rs.json('Hello')
@@ -44,13 +48,11 @@ export class HttpInterface {
 		this.app.use('/', new HelloService().router)
 	}
 
-	public async startup() {
+	public startup() {
 		this.app.listen(process.env.PORT, () => {
 			console.log(`Application is working on http://${process.env.HOST}:${process.env.PORT}`)
 		})
 	}
 }
 
-export function returnX() {
-	return 'x'
-}
+new HttpInterface().startup()
