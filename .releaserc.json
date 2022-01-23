@@ -3,11 +3,13 @@
 		[
 			"@semantic-release/commit-analyzer",
 			{
-				"preset": "conventionalcommits",
+				"preset": "angular",
 				"releaseRules": [
 					{ "type": "docs", "release": false },
 					{ "type": "style", "release": false },
-					{ "type": "refactor", "release": false }
+					{ "type": "refactor", "release": false },
+					{ "type": "chore", "release": "patch" },
+					{ "type": "feat", "release": "minor" }
 				]
 			}
 		],
