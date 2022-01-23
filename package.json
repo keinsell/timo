@@ -1,6 +1,6 @@
 {
 	"name": "timo",
-	"version": "0.0.1",
+	"version": "1.0.2",
 	"description": "Express.js application dedicated for tracking time",
 	"main": "dist/index.js",
 	"repository": "https://github.com/keinsell/timo.git",
