@@ -20,7 +20,7 @@ const app = new HttpInterface().app
 test.before(async (t) => {
 	t.context.server = http.createServer(app)
 	t.context.url = await listen(t.context.server)
-	t.context.mongod = await mongod.create({ binary: { version: 'latest' } })
+	t.context.mongod = await mongod.create({ binary: { version: 'latest', downloadDir: 'node_modules/.cache/mongodb-memory-server/mongodb-binaries' } })
 	await mongoose.connect(t.context.mongod.getUri())
 })
 
