@@ -1,27 +1,13 @@
 import express from 'express'
+import mongoose from 'mongoose'
+
+import { HelloService } from 'hello/service'
+// import { UserService } from 'users/service'
+
+import { HOST, MONGODB_URL, PORT } from 'utils'
 
 export function returnX() {
 	return 'x'
-}
-
-export class HelloController {
-	public async sayHello(rq: express.Request, rs: express.Response) {
-		rs.json('Hello')
-	}
-}
-
-export class HelloService {
-	public router: express.Router
-	private controller: HelloController = new HelloController()
-
-	constructor() {
-		this.router = express.Router()
-		this.routes()
-	}
-
-	private routes() {
-		this.router.get('/', this.controller.sayHello)
-	}
 }
 
 export class HttpInterface {
@@ -44,13 +30,32 @@ export class HttpInterface {
 		this.app.use(express.urlencoded({ extended: false }))
 	}
 	private security() {}
+
 	private routes() {
 		this.app.use('/', new HelloService().router)
+		// this.app.use('/u', new UserService().router)
 	}
 
-	public startup() {
-		this.app.listen(process.env.PORT, () => {
-			console.log(`Application is working on http://${process.env.HOST}:${process.env.PORT}`)
+	/** Method dedicated for database connection. */
+	private database() {
+		try {
+			mongoose.connect(MONGODB_URL)
+		} catch (e) {
+			throw Error(e)
+		}
+
+		// TODO: Add `mongoose` error handling
+
+		return mongoose
+	}
+
+	/** Method dedicated for running Express.js server. */
+	public async startup() {
+		// Ensure application connected to database before run.
+		this.database()
+
+		this.app.listen(PORT, () => {
+			console.log(`Application is working on http://${HOST}:${PORT}`)
 		})
 	}
 }

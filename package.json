@@ -10,7 +10,7 @@
 	"scripts": {
 		"start": "node dist/src/index.js",
 		"build": "tsc -p tsconfig.json",
-		"dev": "tsnd --respawn --quiet --clear src/index.ts",
+		"dev": "tsnd --respawn --quiet --clear -r tsconfig-paths/register src/index.ts",
 		"test": "ava"
 	},
 	"devDependencies": {
@@ -32,7 +32,9 @@
 	},
 	"dependencies": {
 		"conventional-changelog-conventionalcommits": "^4.6.3",
-		"express": "^4.17.2"
+		"date-fns": "^2.28.0",
+		"express": "^4.17.2",
+		"mongoose": "^6.1.7"
 	},
 	"engines": {
 		"node": "16.13.2"
