@@ -48,12 +48,8 @@ test.afterEach(async () => {
 /* Serial tests */
 
 test.serial('GET /u should return array with usernames', async (t) => {
-	interface response {
-		data: [string]
-	}
-
 	// Request to get data from database
-	const body: response = await got('u', { prefixUrl: t.context.url }).json()
+	const body: any = await got('u', { prefixUrl: t.context.url }).json()
 	t.deepEqual(body.data, [username])
 	t.is(body.data.length, 1)
 })
