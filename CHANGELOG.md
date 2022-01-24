@@ -1,3 +1,12 @@
+# [1.0.0-main.2](https://github.com/keinsell/timo/compare/v1.0.0-main.1...v1.0.0-main.2) (2022-01-24)
+
+
+### Features
+
+* **`delete-timeblock`:** add method to `TimetrackingService` ([b908698](https://github.com/keinsell/timo/commit/b908698dc3e2a6d3fa449de4fa47207419f199b1))
+* **`patch-timeblock`:** add method to `TimetrackingService` ([425b382](https://github.com/keinsell/timo/commit/425b382475aa64bd849a5038e119d758a724ece4))
+* **`timeblocks`:** integrate `PATCH` and `DELETE` method to router ([85ecf92](https://github.com/keinsell/timo/commit/85ecf9255178abb67e83f9680a7e19ac3149ea1c))
+
 # 1.0.0-main.1 (2022-01-24)
 
 
