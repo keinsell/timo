@@ -98,6 +98,18 @@ paths:
                   status:
                     type: string
       description: Delete specific username from database.
+  '/t/{username}':
+    parameters:
+      - schema:
+          type: string
+        name: username
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-t-username
 components:
   schemas:
     User:

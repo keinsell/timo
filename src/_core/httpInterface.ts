@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 
 import { HelloService } from 'hello/service'
 import { UserService } from 'users/service'
+import { TimetracingService } from 'timetracking/service'
 
 import { HOST, MONGODB_URL, PORT } from 'utils'
 
@@ -30,6 +31,7 @@ export class HttpInterface {
 	private routes() {
 		this.app.use('/', new HelloService().router)
 		this.app.use('/u', new UserService().router)
+		this.app.use('/t', new TimetracingService().router)
 	}
 
 	/** Method dedicated for database connection. */
