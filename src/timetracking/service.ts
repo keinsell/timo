@@ -1,6 +1,6 @@
 import express, { Request, Response, Router } from 'express'
 import { User } from 'users/model'
-import { Timeblock } from 'timetracking/model'
+import { Timeblock } from 'timeblocks/model'
 
 import ms from 'ms'
 

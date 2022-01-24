@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import { User } from './model'
-import { Timeblock } from 'timetracking/model'
+import { Timeblock } from 'timeblocks/model'
 
 export class UserController {
 	/** Creates new user in database. */
