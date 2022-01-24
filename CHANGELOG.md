@@ -1,3 +1,15 @@
+# [2.4.0-main.1](https://github.com/keinsell/timo/compare/v2.3.0...v2.4.0-main.1) (2022-01-24)
+
+
+### Bug Fixes
+
+* **`get-users`:** return objects instead strings ([1a51bb7](https://github.com/keinsell/timo/commit/1a51bb709072aaec39fdfbe96b3b99c084574c23))
+
+
+### Features
+
+* **`get-timeblock`:** add method to `TimetrackingService` ([f2dced5](https://github.com/keinsell/timo/commit/f2dced57503b199ca5cca15603b78db23b4a76db))
+
 ## [2.3.1-main.1](https://github.com/keinsell/timo/compare/v2.3.0...v2.3.1-main.1) (2022-01-24)
 
 
