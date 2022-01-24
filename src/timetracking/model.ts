@@ -3,13 +3,13 @@ import { Schema, model, Document } from 'mongoose'
 export interface TimeblockInterface extends Document {
 	user: string
 	isTracking: boolean
-	startedAt: Date
-	endedAt: Date
-	description: string
-	duration: string
+	createdAt: Date
+	endedAt?: Date
+	description?: string
+	duration?: string
 }
 
-export const Timeblock = model(
+export const Timeblock = model<TimeblockInterface>(
 	'Timeblock',
 	new Schema({
 		user: {
