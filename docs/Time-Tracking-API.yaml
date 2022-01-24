@@ -99,6 +99,34 @@ paths:
               examples: {}
       operationId: get-users
       description: Get an array of usernames found in database.
+    post:
+      summary: Create new user
+      operationId: post-users
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/User'
+        '409':
+          description: Conflict
+      description: Creates new user in database.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: jay
+              required:
+                - username
+        description: ''
 components:
   schemas:
     User:
