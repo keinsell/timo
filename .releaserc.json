@@ -29,5 +29,8 @@
 			}
 		]
 	],
-	"branches": ["main"]
+	"branches": [
+		{ "name": "main", "prerelease": true },
+		{ "name": "streamline/main", "prerelease": false }
+	]
 }
