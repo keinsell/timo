@@ -102,6 +102,7 @@ paths:
     parameters:
       - schema:
           type: string
+          example: jay
         name: username
         in: path
         required: true
@@ -111,6 +112,103 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    timeblock:
+                      _id: 61ee8c7cdbe4f2f3de64fc8a
+                      user: jay
+                      isTracking: true
+                      createdAt: '2022-01-24T11:24:44.156Z'
+                      __v: 0
+                      duration: 5h
+                    archive:
+                      - _id: 61ee8c7cdbe4f2f3de64fc8a
+                        user: jay
+                        isTracking: true
+                        createdAt: '2022-01-24T11:24:44.156Z'
+                        __v: 0
+                        duration: 5h
+                      - _id: 61ee8d13c33e39c0bc2dc768
+                        user: jay
+                        isTracking: true
+                        createdAt: '2022-01-24T11:27:15.411Z'
+                        __v: 0
+                        description: Designing website
+                      - _id: 61ee8d15c33e39c0bc2dc76c
+                        user: jay
+                        isTracking: true
+                        createdAt: '2022-01-24T11:27:17.052Z'
+                        __v: 0
+                        description: Designing website
+                      - _id: 61ee8d15c33e39c0bc2dc770
+                        user: jay
+                        isTracking: true
+                        createdAt: '2022-01-24T11:27:17.584Z'
+                        __v: 0
+                        description: Designing website
+                      - _id: 61ee8d16c33e39c0bc2dc774
+                        user: jay
+                        isTracking: true
+                        createdAt: '2022-01-24T11:27:18.106Z'
+                        __v: 0
+                        description: Designing website
+                properties:
+                  timeblock:
+                    $ref: '#/components/schemas/TimeEntry'
+                  archive:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      $ref: '#/components/schemas/TimeEntry'
+                required:
+                  - archive
+              examples:
+                When there is running timeblock:
+                  value:
+                    timeblock:
+                      _id: 61ee8c7cdbe4f2f3de64fc8a
+                      user: jay
+                      isTracking: true
+                      createdAt: '2022-01-24T11:24:44.156Z'
+                      __v: 0
+                      duration: 5h
+                    archive:
+                      - _id: 61ee8c7cdbe4f2f3de64fc8a
+                        user: jay
+                        isTracking: true
+                        createdAt: '2022-01-24T11:24:44.156Z'
+                        __v: 0
+                        duration: 5h
+                      - _id: 61ee8d13c33e39c0bc2dc768
+                        user: jay
+                        isTracking: true
+                        createdAt: '2022-01-24T11:27:15.411Z'
+                        __v: 0
+                        description: Designing website
+                      - _id: 61ee8d15c33e39c0bc2dc76c
+                        user: jay
+                        isTracking: true
+                        createdAt: '2022-01-24T11:27:17.052Z'
+                        __v: 0
+                        description: Designing website
+                      - _id: 61ee8d15c33e39c0bc2dc770
+                        user: jay
+                        isTracking: true
+                        createdAt: '2022-01-24T11:27:17.584Z'
+                        __v: 0
+                        description: Designing website
+                      - _id: 61ee8d16c33e39c0bc2dc774
+                        user: jay
+                        isTracking: true
+                        createdAt: '2022-01-24T11:27:18.106Z'
+                        __v: 0
+                        description: Designing website
         '404':
           description: Not Found
           content:
@@ -139,8 +237,18 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties: {}
+              $ref: '#/components/schemas/TimeEntry'
+            examples:
+              Start a new timeblock:
+                value:
+                  description: Designing a new webpage.
+              Add passed timeblock:
+                value:
+                  isTracking: false
+                  createdAt: '2019-08-24T14:15:22Z'
+                  endedAt: '2019-08-24T14:15:22Z'
+                  description: Designing website for law company.
+        description: ''
     post:
       summary: ''
       operationId: post-t-username
@@ -204,3 +312,12 @@ components:
         - user
         - isTracking
         - createdAt
+      x-examples:
+        example-1:
+          _id: 1f704bc5-5055-43eb-a851-c87b6b0bf7b9
+          user: jay
+          isTracking: true
+          createdAt: '2019-08-24T14:15:22Z'
+          endedAt: '2019-08-24T14:15:22Z'
+          description: Designing website for law company.
+          duration: 1h
