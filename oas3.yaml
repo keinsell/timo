@@ -26,19 +26,7 @@ paths:
           content:
             application/json:
               schema:
-                description: ''
-                type: object
-                x-examples:
-                  example-1:
-                    data:
-                      - jay
-                properties:
-                  data:
-                    type: array
-                    items:
-                      type: string
-                required:
-                  - data
+                $ref: '#/components/schemas/User'
               examples: {}
         '':
           description: API always will return array with usernames of registred users.
@@ -349,33 +337,7 @@ paths:
                   minLength: 1
             examples: {}
         description: ''
-  '/t/{timeblock}':
-    parameters:
-      - schema:
-          type: string
-        name: timeblock
-        in: path
-        required: true
-    get:
-      summary: Get specified timeblock
-      tags: []
-      responses: {}
-      operationId: get-d-timeblock
-      description: Enpoints aggregates information about `Timeblock` with provided `_id`.
-    patch:
-      summary: Update specific timeblock
-      operationId: patch-t-timeblock
-      responses:
-        '200':
-          description: OK
-      description: ''
-    delete:
-      summary: ''
-      operationId: delete-t-timeblock
-      responses:
-        '200':
-          description: OK
-  '/s/{username}':
+  '/t/{username}/s':
     parameters:
       - schema:
           type: string
@@ -408,6 +370,36 @@ paths:
                 from:
                   type: string
                   format: date
+      parameters:
+        - schema:
+            type: string
+          in: query
+  '/t/{timeblock}':
+    parameters:
+      - schema:
+          type: string
+        name: timeblock
+        in: path
+        required: true
+    get:
+      summary: Get specified timeblock
+      tags: []
+      responses: {}
+      operationId: get-d-timeblock
+      description: Enpoints aggregates information about `Timeblock` with provided `_id`.
+    patch:
+      summary: Update specific timeblock
+      operationId: patch-t-timeblock
+      responses:
+        '200':
+          description: OK
+      description: ''
+    delete:
+      summary: ''
+      operationId: delete-t-timeblock
+      responses:
+        '200':
+          description: OK
 components:
   schemas:
     User:
