@@ -37,7 +37,7 @@ $ yarn build
 
 ### Usage
 
-If you plan to use the app on your machine, it is recommended that you use the `yarn dev` command, this will open a local development environment and allow you to live preview your changes. On the other hand, if you just want to test the application I recommend using the button below, it will allow you to fork the documentation from Postman and test the endpoints from a Heroku hosted application.If you don't want to use postman we also have [statically hosted documentation](https://documenter.getpostman.com/view/12555920/UVXqECdy).
+If you plan to use the app on your machine, it is recommended that you use the `yarn dev` command, this will open a local development environment and allow you to live preview your changes. On the other hand, if you just want to test the application I recommend using the button below, it will allow you to fork the documentation from Postman and test the endpoints from a Heroku hosted application.If you don't want to use postman we also have [statically hosted documentation](https://keinsell.docs.apiary.io).
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/12555920-c109196b-184b-4d91-86d8-0216b6026771?action=collection%2Ffork&collection-url=entityId%3D12555920-c109196b-184b-4d91-86d8-0216b6026771%26entityType%3Dcollection%26workspaceId%3Dfe2749bd-17c3-4e9f-95e3-69ce48ec9978)
 
