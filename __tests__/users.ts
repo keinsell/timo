@@ -102,5 +102,3 @@ test.serial('DELETE /u should delete user', async (t) => {
 
 	t.is(noUserStatusCode, 404, "Shouldn't be able to delete user that doesn't exist")
 })
-
-ava.todo('PUT /u should update user')
