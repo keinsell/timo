@@ -50,6 +50,7 @@
 		"conventional-changelog-conventionalcommits": "^4.6.3",
 		"date-fns": "^2.28.0",
 		"express": "^4.17.2",
-		"mongoose": "^6.1.7"
+		"mongoose": "^6.1.7",
+		"ms": "^2.1.3"
 	}
 }
