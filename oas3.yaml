@@ -374,7 +374,7 @@ paths:
         - schema:
             type: string
           in: query
-  '/t/{timeblock}':
+  '/t/d/{timeblock}':
     parameters:
       - schema:
           type: string
