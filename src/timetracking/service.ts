@@ -85,33 +85,6 @@ class TimetrackingController {
 
 		res.status(200).json({ status: 'Deleted' })
 	}
-
-	// Add option to modify past time blocks by PATCHbyParams, GETbyParams and DELETEbyParams
-
-	async GETbyParams(req: Request, res: Response) {
-		const id = req.params.timeblock
-		const timeblock = await Timeblock.findById(id)
-		if (!timeblock) return res.status(404).json({ status: 'Timeblock not found' })
-		res.status(200).json({ data: timeblock })
-	}
-
-	async PATCHbyParams(req: Request, res: Response) {
-		const id = req.params.timeblock
-		const timeblock = await Timeblock.findById(id)
-		if (!timeblock) return res.status(404).json({ status: 'Timeblock not found' })
-		const updatedTimeblock = await Timeblock.findByIdAndUpdate(id, { ...req.body })
-		res.status(200).json({ data: updatedTimeblock })
-	}
-
-	async DELETEbyParams(req: Request, res: Response) {
-		const id = req.params.timeblock
-		const timeblock = await Timeblock.findById(id)
-		if (!timeblock) return res.status(404).json({ status: 'Timeblock not found' })
-		await Timeblock.findByIdAndDelete(id)
-		res.status(200).json({ status: 'Deleted' })
-	}
-
-	async POSTforSummary(req: Request, res: Response) {}
 }
 
 export class TimetracingService {
@@ -128,8 +101,5 @@ export class TimetracingService {
 		this.router.post('/:username', this.controller.POST)
 		this.router.patch('/:username', this.controller.PATCH)
 		this.router.delete('/:username', this.controller.DELETE)
-		this.router.get('/d/:timeblock', this.controller.GETbyParams)
-		this.router.patch('/d/:timeblock', this.controller.PATCHbyParams)
-		this.router.delete('d/:timeblock', this.controller.DELETEbyParams)
 	}
 }

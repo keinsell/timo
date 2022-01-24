@@ -16,7 +16,7 @@ servers:
   - description: staging
     url: 'https://a68f86c.herokuapp.com'
 paths:
-  /u:
+  /users:
     get:
       summary: Check users from database
       tags: []
@@ -61,7 +61,7 @@ paths:
                 - username
         description: ''
     parameters: []
-  '/u/{username}':
+  '/users/{username}':
     parameters:
       - schema:
           type: string
@@ -86,7 +86,7 @@ paths:
                   status:
                     type: string
       description: Delete specific username from database.
-  '/t/{username}':
+  '/track/{username}':
     parameters:
       - schema:
           type: string
@@ -337,7 +337,7 @@ paths:
                   minLength: 1
             examples: {}
         description: ''
-  '/t/{username}/s':
+  '/track/{username}/s':
     parameters:
       - schema:
           type: string
@@ -374,7 +374,7 @@ paths:
         - schema:
             type: string
           in: query
-  '/t/d/{timeblock}':
+  '/blocks/{timeblock}':
     parameters:
       - schema:
           type: string
