@@ -16,64 +16,7 @@ servers:
   - description: staging
     url: 'https://a68f86c.herokuapp.com'
 paths:
-  '/{userId}/log':
-    post:
-      summary: Timeblocks
-      operationId: log-time
-      description: Start logging a time
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TimeEntry'
-            examples: {}
-        description: ''
-    parameters:
-      - schema:
-          type: string
-        name: userId
-        in: path
-        required: true
-    delete:
-      summary: ''
-      operationId: discard-timelog
-      responses:
-        '200':
-          description: OK
-      description: Discard currently logged time
-    put:
-      summary: ''
-      operationId: stop-timelog
-      responses:
-        '200':
-          description: OK
-      description: Update (stop) current time session.
-  '/{userId}/summary':
-    parameters:
-      - schema:
-          type: string
-        name: userId
-        in: path
-        required: true
-    get:
-      summary: Generate weekly summary
-      tags: []
-      responses: {}
-      operationId: get-userId-summary
-      description: Provides .csv file with timesheet from past week.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-    post:
-      summary: Get summary from specific timeframe
-      operationId: post-userId-summary
-      responses:
-        '200':
-          description: OK
-      description: ''
-  /users:
+  /u:
     get:
       summary: Check users from database
       tags: []
@@ -97,6 +40,8 @@ paths:
                 required:
                   - data
               examples: {}
+        '':
+          description: API always will return array with usernames of registred users.
       operationId: get-users
       description: Get an array of usernames found in database.
     post:
@@ -127,6 +72,32 @@ paths:
               required:
                 - username
         description: ''
+    parameters: []
+  '/u/{username}':
+    parameters:
+      - schema:
+          type: string
+          example: jay
+        name: username
+        in: path
+        required: true
+        description: jay
+    delete:
+      summary: ''
+      operationId: delete-u-username
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+      description: Delete specific username from database.
 components:
   schemas:
     User:
@@ -154,17 +125,24 @@ components:
           format: uuid
         user:
           type: string
+          example: jay
         isTracking:
           type: boolean
-        description:
+        createdAt:
           type: string
-        startedAt:
-          type: string
+          format: date-time
         endedAt:
           type: string
+          format: date-time
+        description:
+          type: string
+          example: Designing website for law company.
         duration:
           type: string
+          format: duration
+          example: 1h
+          description: Generates human-readable duration of timeblock.
       required:
         - user
         - isTracking
-        - startedAt
+        - createdAt
