@@ -30,7 +30,7 @@
 		]
 	],
 	"branches": [
-		{ "name": "main", "prerelease": true },
-		{ "name": "streamline/main", "prerelease": false }
+		{ "name": "main", "channel": "dev", "prerelease": true },
+		{ "name": "streamline/main", "channel": false, "prerelease": false }
 	]
 }
