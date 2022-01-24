@@ -1,3 +1,15 @@
+# [2.2.0](https://github.com/keinsell/timo/compare/v2.1.0...v2.2.0) (2022-01-24)
+
+
+### Bug Fixes
+
+* **`timeblock`:** add interface to mongodb model ([2174e01](https://github.com/keinsell/timo/commit/2174e01a78e3e114cf60bbb41618253109cfa70c))
+
+
+### Features
+
+* **`post-timeblock`:** add handler for starting timeblock ([128e0c7](https://github.com/keinsell/timo/commit/128e0c78ebb57d37133359fac598748a1e63eb40))
+
 # [2.1.0](https://github.com/keinsell/timo/compare/v2.0.0...v2.1.0) (2022-01-24)
 
 
