@@ -108,8 +108,54 @@ paths:
     get:
       summary: Your GET endpoint
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  status:
+                    type: string
+                    minLength: 1
+                required:
+                  - status
+                x-examples:
+                  example-1:
+                    status: No active timeblock found
+              examples:
+                No Timeblock:
+                  value:
+                    status: No active timeblock found
+                No User:
+                  value:
+                    status: User not found
       operationId: get-t-username
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+    post:
+      summary: ''
+      operationId: post-t-username
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: Designing website
 components:
   schemas:
     User:
