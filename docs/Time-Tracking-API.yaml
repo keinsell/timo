@@ -27,6 +27,7 @@ paths:
             schema:
               $ref: '#/components/schemas/TimeEntry'
             examples: {}
+        description: ''
     parameters:
       - schema:
           type: string
@@ -65,22 +66,6 @@ paths:
           application/json:
             schema:
               type: object
-              properties:
-                sum:
-                  type: object
-                  properties:
-                    monday:
-                      type: string
-                    tuesday:
-                      type: string
-                    '':
-                      type: string
-                fromDate:
-                  type: string
-                toDate:
-                  type: string
-                file:
-                  type: string
     post:
       summary: Get summary from specific timeframe
       operationId: post-userId-summary
@@ -90,19 +75,30 @@ paths:
       description: ''
   /users:
     get:
-      summary: Get users from database
+      summary: Check users from database
       tags: []
-      responses: {}
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    data:
+                      - jay
+                properties:
+                  data:
+                    type: array
+                    items:
+                      type: string
+                required:
+                  - data
+              examples: {}
       operationId: get-users
-      description: ''
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/User'
-            examples: {}
+      description: Get an array of usernames found in database.
 components:
   schemas:
     User:
@@ -121,15 +117,15 @@ components:
       required:
         - nickname
     TimeEntry:
-      title: TimeEntry
+      title: Timeblock
       type: object
-      description: ''
+      description: Database model that holds information about single Timeblock.
       properties:
         _id:
           type: string
           format: uuid
         user:
-          $ref: '#/components/schemas/User'
+          type: string
         isTracking:
           type: boolean
         description:
@@ -137,6 +133,8 @@ components:
         startedAt:
           type: string
         endedAt:
+          type: string
+        duration:
           type: string
       required:
         - user
