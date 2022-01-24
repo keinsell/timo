@@ -94,6 +94,10 @@ class TimetrackingController {
 		if (!timeblock) return res.status(404).json({ status: 'Timeblock not found' })
 		res.status(200).json({ data: timeblock })
 	}
+
+	async PATCHbyParams(req: Request, res: Response) {}
+	async DELETEbyParams(req: Request, res: Response) {}
+	async POSTforSummary(req: Request, res: Response) {}
 }
 
 export class TimetracingService {
