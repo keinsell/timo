@@ -24,9 +24,21 @@ export class UserController {
 		const users = await User.find()
 		let usernames = []
 		users.map((user) => usernames.push(user.username))
-		
+
 		// Return array with usernames with startus 200
 		rs.status(200).json({ data: usernames })
+	}
+
+	public async DELETEbyUsernameParams(rq: Request, rs: Response) {
+		const selectedUsername = rq.params.username
+		const users = await User.findOne({ username: selectedUsername }).count()
+
+		if (users > 0) {
+			await User.deleteOne({ username: selectedUsername })
+			rs.status(200).json({ status: 'Deleted' })
+		} else {
+			rs.status(404).json({ status: 'User not found' })
+		}
 	}
 }
 
@@ -42,5 +54,6 @@ export class UserService {
 	private routes() {
 		this.router.post('/', this.controller.POST)
 		this.router.get('/', this.controller.GET)
+		this.router.delete('/:username', this.controller.DELETEbyUsernameParams)
 	}
 }
