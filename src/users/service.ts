@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import { User } from './model'
+import { Timeblock } from 'timetracking/model'
 
 export class UserController {
 	/** Creates new user in database. */
@@ -33,6 +34,8 @@ export class UserController {
 
 		if (users > 0) {
 			await User.deleteOne({ username: selectedUsername })
+			await Timeblock.deleteMany({ user: selectedUsername })
+
 			rs.status(200).json({ status: 'Deleted' })
 		} else {
 			rs.status(404).json({ status: 'User not found' })
