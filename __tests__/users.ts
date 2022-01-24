@@ -11,7 +11,6 @@ import { MongoMemoryServer as mongod } from 'mongodb-memory-server'
 
 import { HttpInterface } from '_core/httpInterface'
 import { User } from 'users/model'
-import e from 'express'
 
 const test = ava as TestFn<{ server: http.Server; url: string; mongod: any; port: number; username: string }>
 const app = new HttpInterface().app
