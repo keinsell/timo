@@ -9,13 +9,11 @@ export class UserController {
 		const users = await User.findOne({ username: desiredUsername }).count()
 
 		if (users > 0) {
-			rs.status(500).json({ status: 'User with follwoing username exist in database.' })
-			return 0
+			return rs.status(409).json()
+		} else {
+			const newUser = await new User({ username: desiredUsername }).save()
+			rs.status(201).json({ data: newUser })
 		}
-
-		const newUser = await new User({ username: desiredUsername }).save()
-
-		rs.status(201).json({ data: newUser })
 	}
 
 	/** Returns array filled with User's usernames as strings */
