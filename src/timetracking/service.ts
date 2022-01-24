@@ -15,7 +15,9 @@ class TimetrackingController {
 
 		// Get current timeblock related to user
 		const timeblock = await Timeblock.findOne({ isTracking: true })
-		if (!timeblock) return res.status(404).json({ status: 'No active timeblock found' })
+		const timeblocks = await Timeblock.find({ username: username })
+
+		if (!timeblock) return res.status(200).json({ status: 'No active timeblock found', archive: timeblocks })
 
 		const createdAt = timeblock.createdAt.getTime()
 		const actualDate = Date.now()
@@ -26,7 +28,7 @@ class TimetrackingController {
 		timeblock.duration = duration
 		await timeblock.save()
 
-		return res.status(200).json(timeblock)
+		return res.status(200).json({ timeblock: timeblock, archive: timeblocks })
 	}
 
 	/** Creates a new timeblock starting from actual date. */
@@ -46,22 +48,30 @@ class TimetrackingController {
 			user: username,
 			createdAt: new Date(),
 			isTracking: true,
+			...req.body,
 		})
-
-		if (req.body.description) {
-			timeblock.description = req.body.description
-			await timeblock.save()
-		}
 
 		res.status(201).json(timeblock)
 	}
 
-	/** Updates timeblock, this action generally stands for stopping timeblock or editing description of past timeblock. */
-	async PUT() {}
+	async PATCH(req: Request, res: Response) {
+		const { username } = req.params
+
+		// Check if user exists in database
+		const users = await User.findOne({ username: username }).count()
+		if (!users) return res.status(404).json({ status: 'User not found' })
+
+		// Find actual timeblock
+		const runningTimeblock = await Timeblock.findOne({ isTracking: true })
+		const updatedTimeblock = await Timeblock.findByIdAndUpdate(runningTimeblock._id, { ...req.body })
+
+		res.status(200).json({ timeblock: updatedTimeblock })
+	}
+
 	/** Discards timeblock */
 	async DELETE() {}
 
-	// TODO: Selection for actions on specified timeblock, mostly for moderating data purposes.
+	// Add option to modify past time blocks by PATCHbyParams, GETbyParams and DELETEbyParams
 }
 
 export class TimetracingService {
