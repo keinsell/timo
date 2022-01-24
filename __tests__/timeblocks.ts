@@ -62,8 +62,8 @@ test.beforeEach(async (t) => {
 		user: t.context.username,
 		description: t.context.taskNote,
 		createdAt: new Date(),
-		endedAt: add(new Date(), { minutes: 5 }),
-		isTracking: false,
+		// endedAt: add(new Date(), { minutes: 5 }),
+		isTracking: true,
 	}).save()
 
 	t.context.timeblockId = timeblock._id.toString()
@@ -102,5 +102,39 @@ test.serial('GET /blocks/:timeblock should return info about timeblock', async (
 	t.is(nonExistingEntryStatusCode, 404, "Shouldn't be able to get unexisting timeblock")
 })
 
-ava.todo('PATCH /blocks/:timeblock should update timeblock')
+test.serial('PATCH /blocks/:timeblock should update timeblock', async (t) => {
+	// Request to update Timeblock
+	const requestOpts: OptionsOfJSONResponseBody = {
+		prefixUrl: t.context.url,
+		method: 'PUT',
+		json: {
+			description: 'Updated description',
+			endedAt: add(new Date(), { minutes: 5 }),
+			isTracking: false,
+		},
+	}
+
+	let { body, statusCode } = await got<any>(`blocks/${t.context.timeblockId}`, requestOpts)
+
+	body = JSON.parse(body)
+
+	t.is(statusCode, 200)
+	t.is(body.data.description, 'Updated description')
+
+	// Delete Timeblocks from database
+
+	await Timeblock.findByIdAndDelete(t.context.timeblockId)
+
+	let nonExistingEntryStatusCode: number
+
+	try {
+		await got<any>(`blocks/${t.context.timeblockId}`, requestOpts)
+	} catch (error) {
+		nonExistingEntryStatusCode = error.response.statusCode
+	}
+
+	t.is(nonExistingEntryStatusCode, 404, "Shouldn't be able to get unexisting timeblock")
+})
+
+
 ava.todo('DELETE /blocks/:timeblock should delete timeblock')
