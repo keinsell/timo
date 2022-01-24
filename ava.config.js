@@ -1,6 +1,6 @@
 module.exports = {
 	extensions: ['ts'],
-	require: ['ts-node/register', 'tsconfig-paths/register'],
+	require: ['esbuild-register', 'tsconfig-paths/register'],
 	failFast: true,
 	failWithoutAssertions: true,
 	verbose: true,
