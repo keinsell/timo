@@ -1,10 +1,20 @@
 openapi: 3.0.0
 info:
   title: Time Tracking API
-  version: '1.0'
-  description: ''
+  version: '2.1'
+  description: API for a small application commissioned for me as a recruitment task by Nextrope. The purpose of the application is to use TypeScript and any HTTP application framework to create a solution that will allow us to track time and generate reports on how much time we spent working on a given day.
+  contact:
+    name: Jay Whitewood
+    url: 'https://github.com/keinsell'
+    email: keinsell@protonmail.com
+  license:
+    name: MIT
+    url: 'https://github.com/keinsell/timo/blob/main/LICENSE'
 servers:
-  - url: 'http://localhost:3000'
+  - url: 'http://localhost:1337'
+    description: local
+  - description: staging
+    url: 'https://a68f86c.herokuapp.com'
 paths:
   '/{userId}/log':
     post:
