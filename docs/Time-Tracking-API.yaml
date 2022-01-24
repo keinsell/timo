@@ -255,15 +255,144 @@ paths:
       responses:
         '200':
           description: OK
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  status:
+                    type: string
+                    minLength: 1
+                required:
+                  - status
+                x-examples:
+                  example-1:
+                    status: Timeblock is actually running
+              examples:
+                Timeblock is already running:
+                  value:
+                    status: Timeblock is actually running
       requestBody:
         content:
           application/json:
             schema:
+              description: ''
               type: object
+              x-examples:
+                example-1:
+                  isTracking: true
+                  createdAt: string
+                  endedAt: string
+                  description: string
               properties:
+                isTracking:
+                  type: boolean
+                  default: false
+                createdAt:
+                  type: string
+                  minLength: 1
+                  format: date-time
+                endedAt:
+                  type: string
+                  minLength: 1
+                  format: date-time
+                  example: '2019-08-24T14:16:22Z'
                 description:
                   type: string
-                  example: Designing website
+                  minLength: 1
+                  example: Designing some shit
+              required:
+                - isTracking
+                - createdAt
+                - endedAt
+                - description
+        description: ''
+    delete:
+      summary: ''
+      operationId: delete-t-username
+      responses:
+        '200':
+          description: OK
+    patch:
+      summary: ''
+      operationId: patch-t-username
+      responses:
+        '200':
+          description: OK
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  isTracking: false
+                  createdAt: '2019-08-24T14:15:22Z'
+                  endedAt: '2019-08-24T14:15:22Z'
+                  description: Designing website for law company.
+                  duration: 1h
+              properties:
+                isTracking:
+                  type: boolean
+                createdAt:
+                  type: string
+                  minLength: 1
+                endedAt:
+                  type: string
+                  minLength: 1
+                description:
+                  type: string
+                  minLength: 1
+            examples: {}
+        description: ''
+  '/t/{timeblock}':
+    parameters:
+      - schema:
+          type: string
+        name: timeblock
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-d-timeblock
+    patch:
+      summary: ''
+      operationId: patch-t-timeblock
+      responses:
+        '200':
+          description: OK
+    delete:
+      summary: ''
+      operationId: delete-t-timeblock
+      responses:
+        '200':
+          description: OK
+  '/s/{username}':
+    parameters:
+      - schema:
+          type: string
+        name: username
+        in: path
+        required: true
+    get:
+      summary: Generate summary for past 7 days
+      tags: []
+      responses: {}
+      operationId: get-s-username
+      description: ''
+    post:
+      summary: Generate summary for specified period of time
+      operationId: post-s-username
+      responses:
+        '200':
+          description: OK
+      description: ''
 components:
   schemas:
     User:
