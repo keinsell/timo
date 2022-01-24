@@ -1,3 +1,11 @@
+# [2.3.0](https://github.com/keinsell/timo/compare/v2.2.0...v2.3.0) (2022-01-24)
+
+
+### Features
+
+* **`delete-timeblock`:** add method to `TimetrackingService` ([523d6dd](https://github.com/keinsell/timo/commit/523d6ddd281f8295b5b19dd1f01be96edfab8e22))
+* **`patch-timeblock`:** add method to `TimetrackingService` ([8b756f1](https://github.com/keinsell/timo/commit/8b756f1278bdee3c0966635adfd60a4542fd9f47))
+
 # [2.2.0](https://github.com/keinsell/timo/compare/v2.1.0...v2.2.0) (2022-01-24)
 
 
