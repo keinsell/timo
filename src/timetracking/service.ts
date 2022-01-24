@@ -129,5 +129,7 @@ export class TimetracingService {
 		this.router.patch('/:username', this.controller.PATCH)
 		this.router.delete('/:username', this.controller.DELETE)
 		this.router.get('/d/:timeblock', this.controller.GETbyParams)
+		this.router.patch('/d/:timeblock', this.controller.PATCHbyParams)
+		this.router.delete('d/:timeblock', this.controller.DELETEbyParams)
 	}
 }
