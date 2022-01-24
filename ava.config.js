@@ -4,6 +4,7 @@ module.exports = {
 	failFast: true,
 	failWithoutAssertions: true,
 	verbose: true,
+	concurrency: 10,
 	tap: false,
 	cache: true,
 	timeout: '60s',
