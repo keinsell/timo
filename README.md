@@ -59,19 +59,36 @@ Application uses few third-party services such as database in this case it's rec
 ...
 ```
 
-To test your application through unit tests created in `ava` you can use the following command, the command `test:cov` will also return code coverage. The badge below shows the current code coverage.
+To test your application through unit tests created in `ava` you can use the following command, the command `coverage` will also return code coverage. The badge below shows the current code coverage.
 
 [![codecov](https://codecov.io/gh/keinsell/timo/branch/main/graph/badge.svg?token=X66XL7C3HH)](https://codecov.io/gh/keinsell/timo)
 
 ```sh
 $ yarn test
-$ yarn test:cov
+$ yarn coverage
 ```
 
 An option for the lazy.
 
 ```
-<test_results>
+  ✔ mongoose › in-memory database should connect to mongoose
+  ✔ mongoose › in-memory database should hold exactly one record
+  ✔ mongoose › in-memory database should be empty
+  - users › POST /u should create new user
+  - users › PUT /u should update user
+  - users › DELETE /u should delete user
+  ✔ users › GET /u should return array with usernames
+  ─
+
+  4 tests passed
+  3 tests todo
+
+=============================== Coverage summary ===============================
+Statements   : 25.82% ( 226/875 )
+Branches     : 77.14% ( 27/35 )
+Functions    : 43.75% ( 14/32 )
+Lines        : 25.82% ( 226/875 )
+================================================================================
 ```
 
 ### Tour de' Timo
