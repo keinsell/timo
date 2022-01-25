@@ -44,7 +44,11 @@ class TimetrackingController {
 		if (runningTimeblock) return res.status(300).json({ status: 'Timeblock is actually running' })
 
 		// If endedAt is earlier than createdAt throw error
-		if (req.body.createdAt > req.body.endedAt || req.body.createdAt == req.body.endedAt) return res.status(500).json({ status: 'Wrong dates' })
+		if (req.body.createdAt && req.body.endedAt) {
+			if (req.body.createdAt > req.body.endedAt || req.body.createdAt == req.body.endedAt) {
+				return res.status(500).json({ status: 'Wrong dates' })
+			}
+		}
 
 		// Create new timeblock related to user (from actual Date)
 		const timeblock = await Timeblock.create({

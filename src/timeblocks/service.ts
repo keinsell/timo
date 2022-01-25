@@ -12,10 +12,14 @@ class TimeblockController {
 		if (!timeblock) return res.status(404).json({ status: 'Timeblock not found' })
 
 		// If entry is completed assign duration to entry.
-		if (timeblock.isTracking == false || timeblock.endedAt) {
+		if (timeblock.isTracking == false && timeblock.endedAt && timeblock.createdAt) {
 			timeblock.duration = ms(timeblock.endedAt.getTime() - timeblock.createdAt.getTime())
-			timeblock.save()
+		} else {
+			timeblock.isTracking = true
+			timeblock.duration = ms(new Date().getTime() - timeblock.createdAt.getTime())
 		}
+
+		await timeblock.save()
 
 		// Return timeblock information
 		res.status(200).json({ data: timeblock })
