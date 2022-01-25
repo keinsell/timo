@@ -3,11 +3,13 @@
 Timo is a small application commissioned for me as a recruitment task by Nextrope. The purpose of the application is to use TypeScript and any HTTP application
 framework to create a solution that will allow us to track time and generate reports on how much time we spent working on a given day.
 
-## About
+[![codecov](https://codecov.io/gh/keinsell/timo/branch/main/graph/badge.svg?token=X66XL7C3HH)](https://codecov.io/gh/keinsell/timo)
 
-The scope of the project was quite narrow, so I decided to extend it with a few nonsensical things that were not mentioned in the order: authentication (maybe),
-database integration, creating a Docker image or some simple CI/CD. I get into troubles during development because of missunderstanding reqiurements which
-resulted in messy codebase and what's going with it dropping task after one and half day.
+## About Development
+
+Yeah... I started developing this app like two days ago during this time I lost overall design concept and I was chaning it 2-3 times which resulted as absolute
+mess in repository, up to this day 25/01 I do not have time anymore to sit on this project for recrutation purposes. There are some features that are working
+but all that can I say is that this was unlucky project.
 
 ## Getting Started
 
@@ -54,59 +56,12 @@ For running production build you should use `yarn start` or `node dist/src/index
 $ yarn start
 ```
 
-Application uses few third-party services such as database in this case it's recommened to use `docker-compose.yml` file.
-
-```bash
-...
-```
-
-To test your application through unit tests created in `ava` you can use the following command, the command `coverage` will also return code coverage. The badge
-below shows the current code coverage.
-
-[![codecov](https://codecov.io/gh/keinsell/timo/branch/main/graph/badge.svg?token=X66XL7C3HH)](https://codecov.io/gh/keinsell/timo)
+To test your application through unit tests created in `ava` you can use the following command, the command `coverage` will also return code coverage.
 
 ```sh
 $ yarn test
 $ yarn coverage
 ```
-
-An option for the lazy.
-
-```
-  ✔ hello › GET / should return simple hello
-  ✔ mongoose › in-memory database should connect to mongoose
-  ✔ mongoose › in-memory database should hold exactly one record
-  ✔ mongoose › in-memory database should be empty
-  ✔ timeblocks › GET /blocks/:timeblock should return info about timeblock
-  ✔ timeblocks › PATCH /blocks/:timeblock should update timeblock
-  ✔ timeblocks › DELETE /blocks/:timeblock should delete timeblock
-  - timetracking › GET /track/:username should return timeblocks
-  - timetracking › POST /track/:username should create new timeblock
-  - timetracking › PATCH /track/:username should update timeblock
-  - timetracking › DELETE /track/:username should discard actual timeblock
-  - timetracking › POST /track/:username/summary should return summary
-  ✔ users › GET /users should return array with usernames
-  ✔ users › POST /users should create new user
-  ✔ users › DELETE /u should delete user
-  ─
-
-  10 tests passed
-  5 tests todo
-
-=============================== Coverage summary ===============================
-Statements   : 47.81% ( 613/1282 )
-Branches     : 82.08% ( 55/67 )
-Functions    : 61.36% ( 27/44 )
-Lines        : 47.81% ( 613/1282 )
-================================================================================
-```
-
-### Tour de' Timo
-
--  Create new user by `POST /user`
--  Log time by `POST /{userID}/log`
--  Stop logging time by `PUT /{userID}/log`
--  Generate summary by `POST /{userID}/summary`
 
 ## Contributing
 
