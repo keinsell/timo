@@ -86,6 +86,15 @@ class TimetrackingController {
 
 		res.status(200).json({ status: 'Deleted' })
 	}
+
+	async POST_SUMMARY(req: Request, res: Response) {
+		const { username } = req.params
+
+		const doUserExist = await UserFn.doUserExistInDatabase(username)
+		if (!doUserExist) return res.status(404).json({ status: 'User not found' })
+
+		res.json('x')
+	}
 }
 
 export class TimetracingService {
@@ -102,5 +111,6 @@ export class TimetracingService {
 		this.router.post('/:username', this.controller.POST)
 		this.router.patch('/:username', this.controller.PATCH)
 		this.router.delete('/:username', this.controller.DELETE)
+		this.router.get('/:username/summary', this.controller.POST_SUMMARY)
 	}
 }
