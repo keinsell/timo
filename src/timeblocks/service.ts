@@ -11,9 +11,17 @@ class TimeblockController {
 
 	async PATCHbyParams(req: Request, res: Response) {
 		const id = req.params.timeblock
+		
 		const timeblock = await Timeblock.findById(id)
 		if (!timeblock) return res.status(404).json({ status: 'Timeblock not found' })
-		const updatedTimeblock = await Timeblock.findByIdAndUpdate(id, { ...req.body })
+
+		// Okay... I have no fuc... clue. If there is a single update sentence script skips it.
+		// I mean... If we update twice it works if we do not it doesn't.
+		// excuse_me_wtf.png - however, it works.
+
+		let updatedTimeblock = await Timeblock.findByIdAndUpdate(id, { ...req.body })
+		updatedTimeblock = await Timeblock.findByIdAndUpdate(id, { ...req.body })
+		
 		res.status(200).json({ data: updatedTimeblock })
 	}
 
