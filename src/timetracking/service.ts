@@ -39,7 +39,7 @@ class TimetrackingController {
 		if (!doUserExist) return res.status(404).json({ status: 'User not found' })
 
 		// If Return error when timeblock is already running
-		const runningTimeblock = await Timeblock.findOne({ isTracking: true })
+		const runningTimeblock = await Timeblock.findOne({ isTracking: true, username: username })
 		if (runningTimeblock) return res.status(409).json({ status: 'Timeblock is actually running' })
 
 		// If endedAt is earlier than createdAt throw error
