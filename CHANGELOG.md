@@ -1,3 +1,10 @@
+# [1.0.0-main.4](https://github.com/keinsell/timo/compare/v1.0.0-main.3...v1.0.0-main.4) (2022-01-25)
+
+
+### Bug Fixes
+
+* **`get-timeblock`:** update messy live time conditions ([8baa5d5](https://github.com/keinsell/timo/commit/8baa5d5e12167ec5899492ae7684f840a0b2f475))
+
 # [1.0.0-main.3](https://github.com/keinsell/timo/compare/v1.0.0-main.2...v1.0.0-main.3) (2022-01-25)
 
 
