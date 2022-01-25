@@ -106,7 +106,7 @@ test.serial('PATCH /blocks/:timeblock should update timeblock', async (t) => {
 	// Request to update Timeblock
 	const requestOpts: OptionsOfJSONResponseBody = {
 		prefixUrl: t.context.url,
-		method: 'PUT',
+		method: 'PATCH',
 		json: {
 			description: 'Updated description',
 			endedAt: add(new Date(), { minutes: 5 }),
