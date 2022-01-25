@@ -1,17 +1,29 @@
 import express, { Request, Response, Router } from 'express'
 import { Timeblock } from 'timeblocks/model'
+import ms from 'ms'
 
 class TimeblockController {
+	/** Returns information about single `Timeblock` */
 	async GETbyParams(req: Request, res: Response) {
 		const id = req.params.timeblock
+
+		// Check if timeblock exists
 		const timeblock = await Timeblock.findById(id)
 		if (!timeblock) return res.status(404).json({ status: 'Timeblock not found' })
+
+		// If entry is completed assign duration to entry.
+		if (timeblock.isTracking == false || timeblock.endedAt) {
+			timeblock.duration = ms(timeblock.endedAt.getTime() - timeblock.createdAt.getTime())
+			timeblock.save()
+		}
+
+		// Return timeblock information
 		res.status(200).json({ data: timeblock })
 	}
 
 	async PATCHbyParams(req: Request, res: Response) {
 		const id = req.params.timeblock
-		
+
 		const timeblock = await Timeblock.findById(id)
 		if (!timeblock) return res.status(404).json({ status: 'Timeblock not found' })
 
@@ -21,7 +33,7 @@ class TimeblockController {
 
 		let updatedTimeblock = await Timeblock.findByIdAndUpdate(id, { ...req.body })
 		updatedTimeblock = await Timeblock.findByIdAndUpdate(id, { ...req.body })
-		
+
 		res.status(200).json({ data: updatedTimeblock })
 	}
 
