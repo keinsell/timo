@@ -394,6 +394,14 @@ paths:
         '200':
           description: OK
       description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
     delete:
       summary: ''
       operationId: delete-t-timeblock
