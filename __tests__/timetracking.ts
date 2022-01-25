@@ -81,7 +81,21 @@ test.serial('GET /track/:username should return timeblocks', async (t) => {
 	t.is(nonExistingEntryStatusCode, 404, "Shouldn't be able to get unexisting user")
 })
 
-ava.todo('POST /track/:username should create new timeblock')
+test.serial('POST /track/:username should create new timeblock', async (t) => {
+	let { statusCode } = await got<any>(`track/${t.context.username}`, {
+		method: 'POST',
+		prefixUrl: t.context.url,
+		json: {
+			isTracking: false,
+			createdAt: '2019-08-24T14:15:22Z',
+			endedAt: '2019-08-24T14:16:22Z',
+			description: 'Designing some shit',
+		},
+	})
+
+	t.is(statusCode, 201)
+})
+
 ava.todo('PATCH /track/:username should update timeblock')
 ava.todo('DELETE /track/:username should discard actual timeblock')
 
