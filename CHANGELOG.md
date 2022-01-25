@@ -1,3 +1,5 @@
+# [1.0.0-main.8](https://github.com/keinsell/timo/compare/v1.0.0-main.7...v1.0.0-main.8) (2022-01-25)
+
 # [1.0.0-main.7](https://github.com/keinsell/timo/compare/v1.0.0-main.6...v1.0.0-main.7) (2022-01-25)
 
 
