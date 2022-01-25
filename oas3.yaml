@@ -287,7 +287,7 @@ paths:
                   type: string
                   minLength: 1
                   format: date-time
-                  example: '2019-08-24T14:16:22Z'
+                  example: '2019-08-24T16:15:22Z'
                 description:
                   type: string
                   minLength: 1
@@ -337,7 +337,7 @@ paths:
                   minLength: 1
             examples: {}
         description: ''
-  '/track/{username}/s':
+  '/track/{username}/summary':
     parameters:
       - schema:
           type: string
@@ -374,6 +374,13 @@ paths:
         - schema:
             type: string
           in: query
+    get:
+      summary: ''
+      operationId: get-track-username-summary
+      responses:
+        '200':
+          description: OK
+      description: ''
   '/blocks/{timeblock}':
     parameters:
       - schema:

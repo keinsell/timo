@@ -1,8 +1,11 @@
 import express, { Request, Response, Router } from 'express'
 import { UserFn, User } from 'users/model'
-import { Timeblock } from 'timeblocks/model'
+import { Timeblock, TimeblockInterface } from 'timeblocks/model'
 
 import ms from 'ms'
+import got from 'got'
+import datefns from 'date-fns'
+import { PROTOCOL, HOST, PORT } from 'utils'
 
 class TimetrackingController {
 	/** Returns information about current Timeblock. */
@@ -13,19 +16,10 @@ class TimetrackingController {
 		if (!doUserExist) return res.status(404).json({ status: 'User not found' })
 
 		// Get current timeblock related to user
-		const timeblock = await Timeblock.findOne({ isTracking: true })
-		const timeblocks = await Timeblock.find({ username: username, isTracking: false })
+		const timeblock = await Timeblock.findOne({ isTracking: true, username: username })
+		const timeblocks = await Timeblock.find({ username: username, isTracking: false }).sort({ createdAt: 'desc' })
 
 		if (!timeblock) return res.status(200).json({ status: 'No active timeblock found', archive: timeblocks })
-
-		const createdAt = timeblock.createdAt.getTime()
-		const actualDate = Date.now()
-		const diff = actualDate - createdAt
-		const duration = ms(diff)
-
-		// await Timeblock.findByIdAndUpdate(timeblock._id, { ...duration })
-		timeblock.duration = duration
-		await timeblock.save()
 
 		return res.status(200).json({ timeblock: timeblock, archive: timeblocks })
 	}
@@ -89,11 +83,34 @@ class TimetrackingController {
 
 	async POST_SUMMARY(req: Request, res: Response) {
 		const { username } = req.params
+		const { from, to } = req.body
 
 		const doUserExist = await UserFn.doUserExistInDatabase(username)
 		if (!doUserExist) return res.status(404).json({ status: 'User not found' })
 
-		res.json('x')
+		const { archive } = await got(`${PROTOCOL}://${HOST}:${PORT}/track/${username}`).json<{
+			timeblock?: typeof Timeblock
+			archive: [TimeblockInterface]
+		}>()
+
+		let userReport: [{ date: number; hours: number }]
+
+		console.log(new Date().getTime())
+
+		archive.map(async (frame) => {
+			const { createdAt, endedAt, isTracking } = frame
+			const created = datefns.getUnixTime(createdAt)
+			const ended = datefns.getUnixTime(endedAt)
+
+			const diff = datefns.differenceInSeconds(ended, created)
+
+			const hours = datefns.millisecondsToHours(diff)
+			const date = datefns.getDate(createdAt)
+
+			userReport.push({ date, hours })
+		})
+
+		res.json({ report: userReport })
 	}
 }
 

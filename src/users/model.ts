@@ -20,7 +20,6 @@ export const User = model<UserInterface>(
 export const UserFn = {
 	doUserExistInDatabase: async (username: string) => {
 		const users = await User.findOne({ username: username })
-		console.log(users)
 		if (!users) {
 			return false
 		} else {
