@@ -1,3 +1,10 @@
+# [1.0.0-main.3](https://github.com/keinsell/timo/compare/v1.0.0-main.2...v1.0.0-main.3) (2022-01-25)
+
+
+### Features
+
+* **`get-timeblock`:** add `duration` field to response ([9aa5701](https://github.com/keinsell/timo/commit/9aa5701bb42a9b3936485ea3ce5446583beb8d02))
+
 # [1.0.0-main.2](https://github.com/keinsell/timo/compare/v1.0.0-main.1...v1.0.0-main.2) (2022-01-24)
 
 
