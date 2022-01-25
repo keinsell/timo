@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
 import { User } from './model'
-import { Timeblock } from 'timetracking/model'
+import { Timeblock } from 'timeblocks/model'
 
 export class UserController {
 	/** Creates new user in database. */
@@ -21,11 +21,12 @@ export class UserController {
 	public async GET(rq: Request, rs: Response) {
 		// Get all users from database and parse their usernames to array
 		const users = await User.find()
-		let usernames = []
-		users.map((user) => usernames.push(user.username))
+
+		// let usernames = []
+		// users.map((user) => usernames.push(user.username))
 
 		// Return array with usernames with startus 200
-		rs.status(200).json({ data: usernames })
+		rs.status(200).json({ data: users })
 	}
 
 	public async DELETEbyUsernameParams(rq: Request, rs: Response) {

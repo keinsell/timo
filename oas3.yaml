@@ -1,8 +1,18 @@
 openapi: 3.0.0
 info:
   title: Time Tracking API
-  version: '2.1'
-  description: API for a small application commissioned for me as a recruitment task by Nextrope. The purpose of the application is to use TypeScript and any HTTP application framework to create a solution that will allow us to track time and generate reports on how much time we spent working on a given day.
+  version: 0.0.0-dev
+  description: |-
+    API for a small application commissioned for me as a recruitment task by Nextrope. The purpose of the application is to use TypeScript and any HTTP application framework to create a solution that will allow us to track time and generate reports on how much time we spent working on a given day.
+
+    It's failed project and I have no time to fix all of the issues that happended on the road, some parts may work and recommended way of usage this API is following.
+
+    - `POST /users` to create a new user with `username`.
+    - `POST /track/{username}` to start tracking time on task specified as `description`.
+    - `PATCH /track/{username}` to modify actually running `Timeblock` or `DELETE /track/{username}` to discard actual timeblock.
+    - `GET /track/{username}` provides information about actual running `Timeblock` and provides `archive` which contains all of the past `Timeblock`s.
+    - `GET,PATCH,DELETE /blocks/{timeblock}` stands for direct edit of specified timeblock.
+    - `GET/POST /track/{username}/summary` - I had no clue what to do with this endpoint.
   contact:
     name: Jay Whitewood
     url: 'https://github.com/keinsell'
@@ -16,7 +26,7 @@ servers:
   - description: staging
     url: 'https://a68f86c.herokuapp.com'
 paths:
-  /u:
+  /users:
     get:
       summary: Check users from database
       tags: []
@@ -26,19 +36,7 @@ paths:
           content:
             application/json:
               schema:
-                description: ''
-                type: object
-                x-examples:
-                  example-1:
-                    data:
-                      - jay
-                properties:
-                  data:
-                    type: array
-                    items:
-                      type: string
-                required:
-                  - data
+                $ref: '#/components/schemas/User'
               examples: {}
         '':
           description: API always will return array with usernames of registred users.
@@ -73,7 +71,7 @@ paths:
                 - username
         description: ''
     parameters: []
-  '/u/{username}':
+  '/users/{username}':
     parameters:
       - schema:
           type: string
@@ -83,7 +81,7 @@ paths:
         required: true
         description: jay
     delete:
-      summary: ''
+      summary: Delete user from database
       operationId: delete-u-username
       responses:
         '200':
@@ -98,7 +96,7 @@ paths:
                   status:
                     type: string
       description: Delete specific username from database.
-  '/t/{username}':
+  '/track/{username}':
     parameters:
       - schema:
           type: string
@@ -299,7 +297,7 @@ paths:
                   type: string
                   minLength: 1
                   format: date-time
-                  example: '2019-08-24T14:16:22Z'
+                  example: '2019-08-24T16:15:22Z'
                 description:
                   type: string
                   minLength: 1
@@ -349,7 +347,51 @@ paths:
                   minLength: 1
             examples: {}
         description: ''
-  '/t/{timeblock}':
+  '/track/{username}/summary':
+    parameters:
+      - schema:
+          type: string
+        name: username
+        in: path
+        required: true
+    post:
+      summary: Generate summary of specified period
+      operationId: post-s-username
+      responses:
+        '200':
+          description: OK
+      description: |-
+        This endpoint returns hourly summary for specified `User`. `POST` method is different than `GET` method because there you're supposed to specify timerange. There are few possible ways of using this endpoint. 
+
+        - Specifing `to` without `from` to return summary to specific date from first entry. 
+        - Specifing `from` without `to` to return summary until today.
+        - Specifing `to` and `from` which will generate summary in selected range.
+
+        When you'll not specify `body` API will return by default summary of past 7 days.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                to:
+                  type: string
+                  format: date
+                from:
+                  type: string
+                  format: date
+      parameters:
+        - schema:
+            type: string
+          in: query
+    get:
+      summary: ''
+      operationId: get-track-username-summary
+      responses:
+        '200':
+          description: OK
+      description: ''
+  '/blocks/{timeblock}':
     parameters:
       - schema:
           type: string
@@ -357,42 +399,32 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
+      summary: Get specified timeblock
       tags: []
       responses: {}
       operationId: get-d-timeblock
+      description: Enpoints aggregates information about `Timeblock` with provided `_id`.
     patch:
-      summary: ''
+      summary: Update specific timeblock
       operationId: patch-t-timeblock
       responses:
         '200':
           description: OK
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
     delete:
       summary: ''
       operationId: delete-t-timeblock
       responses:
         '200':
           description: OK
-  '/s/{username}':
-    parameters:
-      - schema:
-          type: string
-        name: username
-        in: path
-        required: true
-    get:
-      summary: Generate summary for past 7 days
-      tags: []
-      responses: {}
-      operationId: get-s-username
-      description: ''
-    post:
-      summary: Generate summary for specified period of time
-      operationId: post-s-username
-      responses:
-        '200':
-          description: OK
-      description: ''
 components:
   schemas:
     User:

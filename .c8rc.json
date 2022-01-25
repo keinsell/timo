@@ -1,6 +1,6 @@
 {
 	"all": true,
-	"exclude": ["dist", "ava.config.js"],
+	"exclude": ["dist", "ava.config.js", "ava.config.ci.js", "src/index.ts"],
 	"check-coverage": false,
 	"reporter": ["html", "json-summary", "json", "lcov", "text-summary"],
 	"report-dir": "./coverage"

@@ -2,7 +2,7 @@ import express from 'express'
 
 export class HelloController {
 	public async sayHello(rq: express.Request, rs: express.Response) {
-		rs.json('Hello')
+		rs.json({ message: 'hello' })
 	}
 }
 

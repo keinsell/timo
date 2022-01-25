@@ -6,7 +6,6 @@ export interface TimeblockInterface extends Document {
 	createdAt: Date
 	endedAt?: Date
 	description?: string
-	duration?: string
 }
 
 export const Timeblock = model<TimeblockInterface>(
@@ -26,6 +25,5 @@ export const Timeblock = model<TimeblockInterface>(
 		},
 		endedAt: Date,
 		description: String,
-		duration: String,
 	})
 )

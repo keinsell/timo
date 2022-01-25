@@ -1,13 +1,13 @@
 # Timo
 
-Timo is a small application commissioned for me as a recruitment task by Nextrope. The purpose of the application is to use TypeScript and any HTTP application framework to create a solution that will allow us to track time and generate reports on how much time we spent working on a given day.
+Timo is a small application commissioned for me as a recruitment task by Nextrope. The purpose of the application is to use TypeScript and any HTTP application
+framework to create a solution that will allow us to track time and generate reports on how much time we spent working on a given day.
 
 ## About
 
-The scope of the project was quite narrow, so I decided to extend it with a few nonsensical things that were not mentioned in the order: authentication (maybe), database integration, creating a Docker image or some simple CI/CD. Below I've listed a few features along with links to their PRs (using `git-flow` alone is a pain, especially with a small project) but I think it might make the review a little easier.
-
-- Application can xyz...
-
+The scope of the project was quite narrow, so I decided to extend it with a few nonsensical things that were not mentioned in the order: authentication (maybe),
+database integration, creating a Docker image or some simple CI/CD. I get into troubles during development because of missunderstanding reqiurements which
+resulted in messy codebase and what's going with it dropping task after one and half day.
 
 ## Getting Started
 
@@ -15,15 +15,15 @@ The scope of the project was quite narrow, so I decided to extend it with a few 
 
 ### Prerequisites
 
-- `node@16.13.2`
-- `yarn@1.22.15`
-- `npm@8.3.0`
-- `docker-compose@1.29.2`
-- `docker-engine@20.10.8`
+-  `node@16.13.2`
+-  `yarn@1.22.15`
+-  `npm@8.3.0`
+-  `docker-compose@1.29.2`
+-  `docker-engine@20.10.8`
 
 ### Installation
 
-The installation process is trivial, just install the packages using `yarn` or `npm`. 
+The installation process is trivial, just install the packages using `yarn` or `npm`.
 
 ```bash
 $ yarn
@@ -37,7 +37,10 @@ $ yarn build
 
 ### Usage
 
-If you plan to use the app on your machine, it is recommended that you use the `yarn dev` command, this will open a local development environment and allow you to live preview your changes. On the other hand, if you just want to test the application I recommend using the button below, it will allow you to fork the documentation from Postman and test the endpoints from a Heroku hosted application.If you don't want to use postman we also have [statically hosted documentation](https://documenter.getpostman.com/view/12555920/UVXqECdy).
+If you plan to use the app on your machine, it is recommended that you use the `yarn dev` command, this will open a local development environment and allow you
+to live preview your changes. On the other hand, if you just want to test the application I recommend using the button below, it will allow you to fork the
+documentation from Postman and test the endpoints from a Heroku hosted application.If you don't want to use postman we also have
+[statically hosted documentation](https://keinsell.docs.apiary.io).
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://god.gw.postman.com/run-collection/12555920-c109196b-184b-4d91-86d8-0216b6026771?action=collection%2Ffork&collection-url=entityId%3D12555920-c109196b-184b-4d91-86d8-0216b6026771%26entityType%3Dcollection%26workspaceId%3Dfe2749bd-17c3-4e9f-95e3-69ce48ec9978)
 
@@ -45,13 +48,11 @@ If you plan to use the app on your machine, it is recommended that you use the `
 $ yarn dev
 ```
 
-
 For running production build you should use `yarn start` or `node dist/src/index.js`
 
 ```bash
 $ yarn start
 ```
-
 
 Application uses few third-party services such as database in this case it's recommened to use `docker-compose.yml` file.
 
@@ -59,7 +60,8 @@ Application uses few third-party services such as database in this case it's rec
 ...
 ```
 
-To test your application through unit tests created in `ava` you can use the following command, the command `coverage` will also return code coverage. The badge below shows the current code coverage.
+To test your application through unit tests created in `ava` you can use the following command, the command `coverage` will also return code coverage. The badge
+below shows the current code coverage.
 
 [![codecov](https://codecov.io/gh/keinsell/timo/branch/main/graph/badge.svg?token=X66XL7C3HH)](https://codecov.io/gh/keinsell/timo)
 
@@ -71,32 +73,40 @@ $ yarn coverage
 An option for the lazy.
 
 ```
+  ✔ hello › GET / should return simple hello
   ✔ mongoose › in-memory database should connect to mongoose
   ✔ mongoose › in-memory database should hold exactly one record
   ✔ mongoose › in-memory database should be empty
-  - users › POST /u should create new user
-  - users › PUT /u should update user
-  - users › DELETE /u should delete user
-  ✔ users › GET /u should return array with usernames
+  ✔ timeblocks › GET /blocks/:timeblock should return info about timeblock
+  ✔ timeblocks › PATCH /blocks/:timeblock should update timeblock
+  ✔ timeblocks › DELETE /blocks/:timeblock should delete timeblock
+  - timetracking › GET /track/:username should return timeblocks
+  - timetracking › POST /track/:username should create new timeblock
+  - timetracking › PATCH /track/:username should update timeblock
+  - timetracking › DELETE /track/:username should discard actual timeblock
+  - timetracking › POST /track/:username/summary should return summary
+  ✔ users › GET /users should return array with usernames
+  ✔ users › POST /users should create new user
+  ✔ users › DELETE /u should delete user
   ─
 
-  4 tests passed
-  3 tests todo
+  10 tests passed
+  5 tests todo
 
 =============================== Coverage summary ===============================
-Statements   : 25.82% ( 226/875 )
-Branches     : 77.14% ( 27/35 )
-Functions    : 43.75% ( 14/32 )
-Lines        : 25.82% ( 226/875 )
+Statements   : 47.81% ( 613/1282 )
+Branches     : 82.08% ( 55/67 )
+Functions    : 61.36% ( 27/44 )
+Lines        : 47.81% ( 613/1282 )
 ================================================================================
 ```
 
 ### Tour de' Timo
 
-- Create new user by `POST /user`
-- Log time by `POST /{userID}/log`
-- Stop logging time by `PUT /{userID}/log`
-- Generate summary by `POST /{userID}/summary`
+-  Create new user by `POST /user`
+-  Log time by `POST /{userID}/log`
+-  Stop logging time by `PUT /{userID}/log`
+-  Generate summary by `POST /{userID}/summary`
 
 ## Contributing
 
