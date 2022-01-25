@@ -1,3 +1,10 @@
+# [1.0.0-main.5](https://github.com/keinsell/timo/compare/v1.0.0-main.4...v1.0.0-main.5) (2022-01-25)
+
+
+### Bug Fixes
+
+* **`post-timetracking`:** database was looking for every `isTracking` instead one related to user ([6ea87e4](https://github.com/keinsell/timo/commit/6ea87e496b786017f60f70a41ad4de80dd7017ec))
+
 # [1.0.0-main.4](https://github.com/keinsell/timo/compare/v1.0.0-main.3...v1.0.0-main.4) (2022-01-25)
 
 
