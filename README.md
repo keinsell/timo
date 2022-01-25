@@ -71,23 +71,31 @@ $ yarn coverage
 An option for the lazy.
 
 ```
+  ✔ hello › GET / should return simple hello
   ✔ mongoose › in-memory database should connect to mongoose
   ✔ mongoose › in-memory database should hold exactly one record
   ✔ mongoose › in-memory database should be empty
-  - users › POST /u should create new user
-  - users › PUT /u should update user
-  - users › DELETE /u should delete user
-  ✔ users › GET /u should return array with usernames
+  ✔ timeblocks › GET /blocks/:timeblock should return info about timeblock
+  ✔ timeblocks › PATCH /blocks/:timeblock should update timeblock
+  ✔ timeblocks › DELETE /blocks/:timeblock should delete timeblock
+  - timetracking › GET /track/:username should return timeblocks
+  - timetracking › POST /track/:username should create new timeblock
+  - timetracking › PATCH /track/:username should update timeblock
+  - timetracking › DELETE /track/:username should discard actual timeblock
+  - timetracking › POST /track/:username/summary should return summary
+  ✔ users › GET /users should return array with usernames
+  ✔ users › POST /users should create new user
+  ✔ users › DELETE /u should delete user
   ─
 
-  4 tests passed
-  3 tests todo
+  10 tests passed
+  5 tests todo
 
 =============================== Coverage summary ===============================
-Statements   : 25.82% ( 226/875 )
-Branches     : 77.14% ( 27/35 )
-Functions    : 43.75% ( 14/32 )
-Lines        : 25.82% ( 226/875 )
+Statements   : 47.81% ( 613/1282 )
+Branches     : 82.08% ( 55/67 )
+Functions    : 61.36% ( 27/44 )
+Lines        : 47.81% ( 613/1282 )
 ================================================================================
 ```
 
