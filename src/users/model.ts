@@ -1,4 +1,5 @@
 import { Schema, model, Document } from 'mongoose'
+import { Request, Response } from 'express'
 
 export interface UserInterface extends Document {
 	username: string
@@ -15,3 +16,15 @@ export const User = model<UserInterface>(
 		// password: String,
 	})
 )
+
+export const UserFn = {
+	doUserExistInDatabase: async (username: string) => {
+		const users = await User.findOne({ username: username })
+		console.log(users)
+		if (!users) {
+			return false
+		} else {
+			return true
+		}
+	},
+}

@@ -1,5 +1,5 @@
 import express, { Request, Response, Router } from 'express'
-import { User } from 'users/model'
+import { UserFn, User } from 'users/model'
 import { Timeblock } from 'timeblocks/model'
 
 import ms from 'ms'
@@ -9,9 +9,8 @@ class TimetrackingController {
 	async GET(req: Request, res: Response) {
 		const { username } = req.params
 
-		// Check if user exists in database
-		const users = await User.findOne({ username: username }).count()
-		if (!users) return res.status(404).json({ status: 'User not found' })
+		const doUserExist = await UserFn.doUserExistInDatabase(username)
+		if (!doUserExist) return res.status(404).json({ status: 'User not found' })
 
 		// Get current timeblock related to user
 		const timeblock = await Timeblock.findOne({ isTracking: true })
@@ -36,12 +35,12 @@ class TimetrackingController {
 		const { username } = req.params
 
 		// Check if user exists in database
-		const users = await User.findOne({ username: username }).count()
-		if (!users) return res.status(404).json({ status: 'User not found' })
+		const doUserExist = await UserFn.doUserExistInDatabase(username)
+		if (!doUserExist) return res.status(404).json({ status: 'User not found' })
 
 		// If Return error when timeblock is already running
 		const runningTimeblock = await Timeblock.findOne({ isTracking: true })
-		if (runningTimeblock) return res.status(300).json({ status: 'Timeblock is actually running' })
+		if (runningTimeblock) return res.status(409).json({ status: 'Timeblock is actually running' })
 
 		// If endedAt is earlier than createdAt throw error
 		if (req.body.createdAt && req.body.endedAt) {
@@ -64,9 +63,8 @@ class TimetrackingController {
 	async PATCH(req: Request, res: Response) {
 		const { username } = req.params
 
-		// Check if user exists in database
-		const users = await User.findOne({ username: username }).count()
-		if (!users) return res.status(404).json({ status: 'User not found' })
+		const doUserExist = await UserFn.doUserExistInDatabase(username)
+		if (!doUserExist) return res.status(404).json({ status: 'User not found' })
 
 		// Find actual timeblock
 		const runningTimeblock = await Timeblock.findOne({ isTracking: true })
@@ -79,9 +77,8 @@ class TimetrackingController {
 	async DELETE(req: Request, res: Response) {
 		const { username } = req.params
 
-		// Check if user exists in database
-		const users = await User.findOne({ username: username }).count()
-		if (!users) return res.status(404).json({ status: 'User not found' })
+		const doUserExist = await UserFn.doUserExistInDatabase(username)
+		if (!doUserExist) return res.status(404).json({ status: 'User not found' })
 
 		// Find actual timeblock
 		const runningTimeblock = await Timeblock.findOne({ isTracking: true })
