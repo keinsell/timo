@@ -80,38 +80,6 @@ class TimetrackingController {
 
 		res.status(200).json({ status: 'Deleted' })
 	}
-
-	async POST_SUMMARY(req: Request, res: Response) {
-		const { username } = req.params
-		const { from, to } = req.body
-
-		const doUserExist = await UserFn.doUserExistInDatabase(username)
-		if (!doUserExist) return res.status(404).json({ status: 'User not found' })
-
-		const { archive } = await got(`${PROTOCOL}://${HOST}:${PORT}/track/${username}`).json<{
-			timeblock?: typeof Timeblock
-			archive: [TimeblockInterface]
-		}>()
-
-		let userReport: [{ date: number; hours: number }]
-
-		console.log(new Date().getTime())
-
-		archive.map(async (frame) => {
-			const { createdAt, endedAt, isTracking } = frame
-			const created = datefns.getUnixTime(createdAt)
-			const ended = datefns.getUnixTime(endedAt)
-
-			const diff = datefns.differenceInSeconds(ended, created)
-
-			const hours = datefns.millisecondsToHours(diff)
-			const date = datefns.getDate(createdAt)
-
-			userReport.push({ date, hours })
-		})
-
-		res.json({ report: userReport })
-	}
 }
 
 export class TimetracingService {
@@ -128,6 +96,5 @@ export class TimetracingService {
 		this.router.post('/:username', this.controller.POST)
 		this.router.patch('/:username', this.controller.PATCH)
 		this.router.delete('/:username', this.controller.DELETE)
-		this.router.get('/:username/summary', this.controller.POST_SUMMARY)
 	}
 }
