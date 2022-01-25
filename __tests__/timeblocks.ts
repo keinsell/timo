@@ -136,5 +136,28 @@ test.serial('PATCH /blocks/:timeblock should update timeblock', async (t) => {
 	t.is(nonExistingEntryStatusCode, 404, "Shouldn't be able to get unexisting timeblock")
 })
 
+test.serial('DELETE /blocks/:timeblock should delete timeblock', async (t) => {
+	// Request to delete Timeblock
+	const requestOpts: OptionsOfJSONResponseBody = {
+		prefixUrl: t.context.url,
+		method: 'DELETE',
+	}
 
-ava.todo('DELETE /blocks/:timeblock should delete timeblock')
+	let { statusCode } = await got<any>(`blocks/${t.context.timeblockId}`, requestOpts)
+
+	t.is(statusCode, 200)
+
+	// Delete Timeblocks from database
+
+	await Timeblock.findByIdAndDelete(t.context.timeblockId)
+
+	let nonExistingEntryStatusCode: number
+
+	try {
+		await got<any>(`blocks/${t.context.timeblockId}`, requestOpts)
+	} catch (error) {
+		nonExistingEntryStatusCode = error.response.statusCode
+	}
+
+	t.is(nonExistingEntryStatusCode, 404, "Shouldn't be able to get unexisting timeblock")
+})
