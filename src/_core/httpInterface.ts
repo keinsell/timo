@@ -1,5 +1,6 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import morgan from 'morgan'
 
 import { HelloService } from 'hello/service'
 import { UserService } from 'users/service'
@@ -26,6 +27,7 @@ export class HttpInterface {
 	private middleware() {
 		this.app.use(express.json())
 		this.app.use(express.urlencoded({ extended: false }))
+		this.app.use(morgan('dev'))
 	}
 	private security() {}
 
