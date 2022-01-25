@@ -82,21 +82,36 @@ test.serial('GET /track/:username should return timeblocks', async (t) => {
 })
 
 test.serial('POST /track/:username should create new timeblock', async (t) => {
-	let { statusCode } = await got<any>(`track/${t.context.username}`, {
+	let { statusCode, body } = await got<any>(`track/${t.context.username}`, {
 		method: 'POST',
 		prefixUrl: t.context.url,
 		json: {
-			isTracking: false,
-			createdAt: '2019-08-24T14:15:22Z',
-			endedAt: '2019-08-24T14:16:22Z',
 			description: 'Designing some shit',
 		},
 	})
 
+	body = JSON.parse(body)
+
 	t.is(statusCode, 201)
+	t.is(body.description, 'Designing some shit')
+
+	let tryToTrackMultipleEntries
+
+	try {
+		await got<any>(`track/${t.context.username}`, {
+			method: 'POST',
+			prefixUrl: t.context.url,
+			json: {
+				description: 'Designing some shit',
+			},
+		})
+	} catch (error) {
+		tryToTrackMultipleEntries = error.response.statusCode
+	}
+
+	t.is(tryToTrackMultipleEntries, 409, "Shouldn't be able to track multiple entries")
 })
 
 ava.todo('PATCH /track/:username should update timeblock')
 ava.todo('DELETE /track/:username should discard actual timeblock')
-
 ava.todo('POST /track/:username/summary should return summary')
