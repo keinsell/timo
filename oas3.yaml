@@ -1,8 +1,18 @@
 openapi: 3.0.0
 info:
   title: Time Tracking API
-  version: '2.1'
-  description: API for a small application commissioned for me as a recruitment task by Nextrope. The purpose of the application is to use TypeScript and any HTTP application framework to create a solution that will allow us to track time and generate reports on how much time we spent working on a given day.
+  version: 0.0.0-dev
+  description: |-
+    API for a small application commissioned for me as a recruitment task by Nextrope. The purpose of the application is to use TypeScript and any HTTP application framework to create a solution that will allow us to track time and generate reports on how much time we spent working on a given day.
+
+    It's failed project and I have no time to fix all of the issues that happended on the road, some parts may work and recommended way of usage this API is following.
+
+    - `POST /users` to create a new user with `username`.
+    - `POST /track/{username}` to start tracking time on task specified as `description`.
+    - `PATCH /track/{username}` to modify actually running `Timeblock` or `DELETE /track/{username}` to discard actual timeblock.
+    - `GET /track/{username}` provides information about actual running `Timeblock` and provides `archive` which contains all of the past `Timeblock`s.
+    - `GET,PATCH,DELETE /blocks/{timeblock}` stands for direct edit of specified timeblock.
+    - `GET/POST /track/{username}/summary` - I had no clue what to do with this endpoint.
   contact:
     name: Jay Whitewood
     url: 'https://github.com/keinsell'
