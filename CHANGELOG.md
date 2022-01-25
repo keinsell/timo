@@ -1,3 +1,10 @@
+# [1.0.0-main.7](https://github.com/keinsell/timo/compare/v1.0.0-main.6...v1.0.0-main.7) (2022-01-25)
+
+
+### Features
+
+* **`core`:** add morgan ([653e9f2](https://github.com/keinsell/timo/commit/653e9f2e4a070b6917af24ba17045cae54670db4))
+
 # [1.0.0-main.6](https://github.com/keinsell/timo/compare/v1.0.0-main.5...v1.0.0-main.6) (2022-01-25)
 
 # [1.0.0-main.5](https://github.com/keinsell/timo/compare/v1.0.0-main.4...v1.0.0-main.5) (2022-01-25)
